@@ -1,4 +1,4 @@
-package com.sunsigne.tuto.system.object;
+package com.sunsigne.tuto.object;
 
 import java.awt.Graphics;
 

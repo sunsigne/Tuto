@@ -3,7 +3,7 @@ package com.sunsigne.tuto.system.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-import com.sunsigne.tuto.system.util.AnnotationBank.Singleton;
+import com.sunsigne.tuto.util.AnnotationBank.Singleton;
 
 @Singleton
 public class HandlerRender implements IRender {

@@ -1,11 +1,11 @@
-package com.sunsigne.tuto.system.object;
+package com.sunsigne.tuto.object;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
 
 import com.sunsigne.tuto.system.main.IRender;
 import com.sunsigne.tuto.system.main.ITick;
-import com.sunsigne.tuto.system.util.AnnotationBank.Singleton;
+import com.sunsigne.tuto.util.AnnotationBank.Singleton;
 
 @Singleton
 public class HandlerObject implements ITick, IRender {

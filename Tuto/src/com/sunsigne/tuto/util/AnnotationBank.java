@@ -1,4 +1,4 @@
-package com.sunsigne.tuto.system.util;
+package com.sunsigne.tuto.util;
 
 public class AnnotationBank {
 

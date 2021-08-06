@@ -8,7 +8,7 @@ import java.util.ConcurrentModificationException;
 
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.Window;
-import com.sunsigne.tuto.system.util.AnnotationBank.Singleton;
+import com.sunsigne.tuto.util.AnnotationBank.Singleton;
 
 @Singleton
 public class Tuto extends Canvas implements Runnable {
@@ -120,10 +120,14 @@ public class Tuto extends Canvas implements Runnable {
 
 	}
 
+	////////// TICK ////////////
+	
 	private void tick() {
 		HandlerTick.getInstance().tick();
 	}
 
+	////////// RENDER ////////////
+	
 	private void render() {
 
 		BufferStrategy bs = this.getBufferStrategy();
