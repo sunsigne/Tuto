@@ -1,9 +1,11 @@
-package com.sunsigne.tuto.system.main;
+package com.sunsigne.tuto.system;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+
+import com.sunsigne.tuto.system.main.Tuto;
 
 public class Window {
 
@@ -12,7 +14,7 @@ public class Window {
 	public static final int WIDHT = 1920;
 	public static final int HEIGHT = 1080;
 	
-	public Window(Tuto tuto) {
+	protected Window(Tuto tuto) {
 		
 		tuto.setMinimumSize(new Dimension(WIDHT, HEIGHT));
 		tuto.setMaximumSize(new Dimension(WIDHT, HEIGHT));

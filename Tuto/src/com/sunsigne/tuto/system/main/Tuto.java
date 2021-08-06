@@ -6,17 +6,33 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ConcurrentModificationException;
 
+import com.sunsigne.tuto.system.Conductor;
+import com.sunsigne.tuto.system.Window;
+import com.sunsigne.tuto.system.util.AnnotationBank.Singleton;
+
+@Singleton
 public class Tuto extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private static Tuto tuto;
-	
+
 	////////// MAIN ////////////
 
 	public static void main(String agrs[]) {
-		tuto = new Tuto();
-		new Window(tuto);
-		tuto.start();
+		instance = new Tuto();
+		Conductor.startApp();
+	}
+
+	////////// SIGNELTON ////////////
+
+	
+	private Tuto() {
+
+	}
+
+	private static Tuto instance = null;
+
+	public static Tuto getInstance() {
+		return instance;
 	}
 
 	////////// THREAD ////////////
@@ -66,8 +82,15 @@ public class Tuto extends Canvas implements Runnable {
 
 			while (delta >= 1) {
 //				ticks++;
-
-				tick();
+				try {
+					tick();
+				} catch (ConcurrentModificationException | NullPointerException e) {
+					// some list are sometimes changed during a tick instead of between
+					// two ticks, which may cause crash. As the next tick repair the problem,
+					// no need to proccess this exception.
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				delta--;
 				shouldRender = true;
@@ -76,7 +99,13 @@ public class Tuto extends Canvas implements Runnable {
 			if (shouldRender) {
 //				frames++;
 
-				render();
+				try {
+					render();
+				} catch (ConcurrentModificationException | NullPointerException e) {
+					// same problem as above
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 			}
 
@@ -92,29 +121,26 @@ public class Tuto extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		
+		HandlerTick.getInstance().tick();
 	}
-	
 
 	private void render() {
-		
+
 		BufferStrategy bs = this.getBufferStrategy();
-		if(bs == null) {
+		if (bs == null) {
 			this.createBufferStrategy(3);
 			return;
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
-		
+
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, Window.WIDHT, Window.HEIGHT);
-		///
-		g.setColor(new Color(255, 0, 0));
-		g.fillRect(50, 50, 50, 50);
-		///
+
+		HandlerRender.getInstance().render(g);
+
 		g.dispose();
 		bs.show();
 	}
 
-	
 }
