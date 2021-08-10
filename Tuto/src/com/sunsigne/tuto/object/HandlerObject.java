@@ -10,7 +10,7 @@ import com.sunsigne.tuto.util.AnnotationBank.Singleton;
 @Singleton
 public class HandlerObject implements ITick, IRender {
 
-//////////SIGNELTON ////////////
+	////////// SIGNELTON ////////////
 
 	private HandlerObject() {
 		startTick();
@@ -54,12 +54,23 @@ public class HandlerObject implements ITick, IRender {
 		return null;
 	}
 
+	protected boolean isPlayerExisting() {
+		return handler_object_list.contains(Player.get());
+	}
+
 	////////// TICK ////////////
 
 	@Override
 	public void tick() {
-		for (GameObject tempObject : handler_object_list)
+		for (GameObject tempObject : handler_object_list) {
 			tempObject.tick();
+			velocity(tempObject);
+		}
+	}
+
+	private void velocity(GameObject tempObject) {
+		tempObject.setX(tempObject.getX() + tempObject.getVelX());
+		tempObject.setY(tempObject.getY() + tempObject.getVelY());
 	}
 
 	////////// RENDER ////////////
