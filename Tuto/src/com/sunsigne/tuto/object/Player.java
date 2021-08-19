@@ -8,12 +8,12 @@ public class Player extends GameObject {
 	public static final int SPEED = 32 / 3;
 	
 	private Player(int x, int y) {
-		super(x, y);
+		super(true, false, x, y);
 	}
 	
 	////////// EXISTING ////////////
 	
-	private static Player player = new Player(0, 0);
+	private static Player player = new Player(50, 50);
 	
 	public static boolean isExisting() {
 		return HandlerObject.getInstance().isPlayerExisting();

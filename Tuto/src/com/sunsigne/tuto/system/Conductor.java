@@ -3,6 +3,7 @@ package com.sunsigne.tuto.system;
 import com.sunsigne.tuto.controllers.GameKeyboardInput;
 import com.sunsigne.tuto.object.Player;
 import com.sunsigne.tuto.object.Wall;
+import com.sunsigne.tuto.object.gui.GUIHealth;
 import com.sunsigne.tuto.system.main.Tuto;
 
 public class Conductor {
@@ -40,6 +41,8 @@ public class Conductor {
 		Wall wall = new Wall(500, 300);
 		wall.start();
 		new Wall(900, 600).start();
+		
+		new GUIHealth().start();
 	}
 
 }

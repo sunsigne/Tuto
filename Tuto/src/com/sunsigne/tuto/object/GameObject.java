@@ -7,7 +7,7 @@ import com.sunsigne.tuto.system.main.ITick;
 
 public abstract class GameObject implements ITick, IRender {
 
-	public GameObject(int x, int y) {
+	public GameObject(boolean cameraDependant, boolean layerAbove, int x, int y) {
 		
 		this.x = x;
 		this.y = y;
@@ -16,6 +16,9 @@ public abstract class GameObject implements ITick, IRender {
 		
 		w = 3 * 32;
 		h = 3 * 32;		
+		
+		this.cameraDependant = cameraDependant;
+		this.layerAbove = layerAbove;
 	}
 	
 	////////// HANDLER ////////////
@@ -107,4 +110,20 @@ public abstract class GameObject implements ITick, IRender {
 		velX = 0;
 		velY = 0;
 	}
+	
+	////////// RENDER ////////////
+
+	private boolean cameraDependant;
+	private boolean layerAbove;
+	
+	@Override
+	public boolean isCameraDependant() {
+		return cameraDependant;
+	}
+
+	@Override
+	public boolean isLayerAbove() {
+		return layerAbove;
+	}
+	
 }
