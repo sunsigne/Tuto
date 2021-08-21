@@ -59,6 +59,7 @@ public class HandlerRender implements IRender {
 	private boolean cameraDependant;
 	private boolean layerAbove;
 	
+	@Override
 	public boolean isCameraDependant() {
 		return cameraDependant;
 	}
@@ -67,6 +68,7 @@ public class HandlerRender implements IRender {
 		this.cameraDependant = cameraDependant;
 	}
 
+	@Override
 	public boolean isLayerAbove() {
 		return layerAbove;
 	}

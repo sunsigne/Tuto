@@ -13,7 +13,7 @@ public class Player extends GameObject {
 	
 	////////// EXISTING ////////////
 	
-	private static Player player = new Player(50, 50);
+	private static Player player = new Player(0, 0);
 	
 	public static boolean isExisting() {
 		return HandlerObject.getInstance().isPlayerExisting();

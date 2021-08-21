@@ -2,7 +2,6 @@ package com.sunsigne.tuto.object;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 public class Wall extends GameObject {
 
@@ -14,7 +13,7 @@ public class Wall extends GameObject {
 
 	@Override
 	public void tick() {
-		
+
 	}
 
 	////////// RENDER ////////////
@@ -22,9 +21,8 @@ public class Wall extends GameObject {
 	@Override
 	public void render(Graphics g) {
 
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.white);
-		g2d.draw(getBounds());
+		g.setColor(Color.BLUE);
+		g.fillRect(x, y, w, h);
 	}
 
 }

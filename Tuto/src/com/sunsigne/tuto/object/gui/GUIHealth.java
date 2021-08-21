@@ -10,15 +10,12 @@ public class GUIHealth extends GameObject {
 
 	public GUIHealth() {
 		super(false, false, 0, 0);
-		// TODO Auto-generated constructor stub
 	}
 
 	////////// TICK ////////////
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	////////// RENDER ////////////

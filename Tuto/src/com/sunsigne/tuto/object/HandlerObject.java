@@ -14,9 +14,10 @@ public class HandlerObject implements ITick, IRender {
 	////////// SIGNELTON ////////////
 
 	private HandlerObject() {
-		for (int layer = 0; layer < 2; layer++) {
-			handler_object_list[0][layer] = new LinkedList<GameObject>();
-			handler_object_list[1][layer] = new LinkedList<GameObject>();
+		for (int camera = 0; camera < 2; camera++) {
+			for (int layer = 0; layer < 2; layer++) {
+				handler_object_list[camera][layer] = new LinkedList<GameObject>();
+			}
 		}
 
 		startTick();
@@ -26,7 +27,7 @@ public class HandlerObject implements ITick, IRender {
 		startRenderDependency(false, false);
 		startRenderDependency(false, true);
 	}
-	
+
 	private void startRenderDependency(boolean cameraDependant, boolean layerAbove) {
 		HandlerRender.getInstance().setCameraDependant(cameraDependant);
 		HandlerRender.getInstance().setLayerAbove(layerAbove);
@@ -35,7 +36,7 @@ public class HandlerObject implements ITick, IRender {
 
 	private static HandlerObject instance = null;
 
-	protected static HandlerObject getInstance() {
+	public static HandlerObject getInstance() {
 		if (instance == null)
 			instance = new HandlerObject();
 		return instance;
@@ -44,8 +45,7 @@ public class HandlerObject implements ITick, IRender {
 	////////// MAP OR LIST ////////////
 
 	@SuppressWarnings("unchecked")
-	private LinkedList<GameObject>[][] handler_object_list = new LinkedList[2][2]; // - cameraDependency -
-																					// layerAboveness
+	private LinkedList<GameObject>[][] handler_object_list = new LinkedList[2][2]; // - cameraDependency - layerAbove
 
 	private LinkedList<GameObject> getList(boolean cameraDependant, boolean layerAbove) {
 
@@ -72,15 +72,6 @@ public class HandlerObject implements ITick, IRender {
 
 	////////// UTIL ////////////
 
-	public GameObject getObjectAtPos(boolean cameraDependant, boolean layerAbove, int x, int y) {
-		for (GameObject tempObject : getList(cameraDependant, layerAbove)) {
-			if (tempObject.getX() == x && tempObject.getY() == y) {
-				return tempObject;
-			}
-		}
-		return null;
-	}
-
 	protected boolean isPlayerExisting() {
 
 		if (getList(true, false).contains(Player.get()))
@@ -90,6 +81,15 @@ public class HandlerObject implements ITick, IRender {
 			return true;
 
 		return false;
+	}
+	
+	public GameObject getObjectAtPos(boolean cameraDependant, boolean layerAbove, int x, int y) {
+		for (GameObject tempObject : getList(cameraDependant, layerAbove)) {
+			if (tempObject.getX() == x && tempObject.getY() == y) {
+				return tempObject;
+			}
+		}
+		return null;
 	}
 
 	////////// TICK ////////////

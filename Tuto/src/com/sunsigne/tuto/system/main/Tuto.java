@@ -55,7 +55,7 @@ public class Tuto extends Canvas implements Runnable {
 
 		try {
 			thread.join();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -121,6 +121,17 @@ public class Tuto extends Canvas implements Runnable {
 
 	}
 
+	public void forceLoop() {
+		try {
+			tick();
+			render();
+		} catch (Exception e) {
+			// same problem as above but can be more annoying.
+			// Clearly, It's just better to ignore this catch
+			// as this method is called locally.
+		}
+	}
+
 	////////// TICK ////////////
 
 	private void tick() {
@@ -131,7 +142,7 @@ public class Tuto extends Canvas implements Runnable {
 	////////// RENDER ////////////
 
 	private static final Camera CAMERA = new Camera();
-	
+
 	private void render() {
 
 		BufferStrategy bs = this.getBufferStrategy();
@@ -141,7 +152,7 @@ public class Tuto extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		
+
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, Window.WIDHT, Window.HEIGHT);
 
@@ -154,16 +165,16 @@ public class Tuto extends Canvas implements Runnable {
 
 	private void renderDependency(Graphics g, boolean cameraDependant) {
 		Graphics2D g2d = (Graphics2D) g;
-		
-		int cameraDependency = cameraDependant ? 1 : -1;		
+
+		int cameraDependency = cameraDependant ? 1 : -1;
 		g2d.translate(cameraDependency * CAMERA.getX(), cameraDependency * CAMERA.getY());
-		
-		HandlerRender.getInstance().setLayerAbove(false);		
+
+		HandlerRender.getInstance().setLayerAbove(false);
 		HandlerRender.getInstance().render(g);
-		HandlerRender.getInstance().setLayerAbove(true);		
+		HandlerRender.getInstance().setLayerAbove(true);
 		HandlerRender.getInstance().render(g);
 		HandlerRender.getInstance().setCameraDependant(!cameraDependant);
 
 	}
-	
+
 }

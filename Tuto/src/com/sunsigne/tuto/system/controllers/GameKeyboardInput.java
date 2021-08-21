@@ -1,4 +1,4 @@
-package com.sunsigne.tuto.controllers;
+package com.sunsigne.tuto.system.controllers;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

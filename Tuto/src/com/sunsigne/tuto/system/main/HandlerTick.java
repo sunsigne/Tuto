@@ -15,7 +15,7 @@ public class HandlerTick implements ITick {
 
 	private static HandlerTick instance = null;
 
-	protected static HandlerTick getInstance() {
+	public static HandlerTick getInstance() {
 		if (instance == null)
 			instance = new HandlerTick();
 		return instance;

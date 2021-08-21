@@ -1,4 +1,6 @@
 à faire
 
-Tuto - la fonction forceloop
 Window - la miniature
+
+
+prochain épisode : le débug
