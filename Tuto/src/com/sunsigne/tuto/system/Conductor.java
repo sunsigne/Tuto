@@ -2,12 +2,14 @@ package com.sunsigne.tuto.system;
 
 import com.sunsigne.tuto.object.Player;
 import com.sunsigne.tuto.object.Wall;
+import com.sunsigne.tuto.object.gui.GUIDebug;
 import com.sunsigne.tuto.object.gui.GUIHealth;
 import com.sunsigne.tuto.system.controllers.GameKeyboardInput;
 import com.sunsigne.tuto.system.main.Tuto;
 
 public class Conductor {
 
+	public static final DebugMode DEBUG_MODE = new DebugMode();
 	public static final GameKeyboardInput KEYBOARD = new GameKeyboardInput();
 	
 	////////// START & STOP ////////////
@@ -39,6 +41,7 @@ public class Conductor {
 		
 		Player.get().start();
 		new GUIHealth().start();
+		new GUIDebug().start();
 		
 		new Wall(500, 300).start();		
 		new Wall(900, 600).start();

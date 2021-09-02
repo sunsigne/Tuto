@@ -23,15 +23,36 @@ public class GameKeyboardInput extends KeyAdapter {
 	 public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		
+		degugKey(key);
 		exitKey(key);
 		directionKey(key, true);
 	}
-	
+
 	@Override
 	 public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		
 		directionKey(key, false);
+	}
+	
+	////////// DEBUG MOD ////////////
+	
+	private void degugKey(int key) {
+		
+		if (key == KeyEvent.VK_F1)
+			Conductor.DEBUG_MODE.getMultiToolMode().cycle();
+				
+		if (key == KeyEvent.VK_F2)
+			Conductor.DEBUG_MODE.getWallPassMode().cycle();
+		
+		if (key == KeyEvent.VK_F3)
+			Conductor.DEBUG_MODE.getSkipMode().cycle();
+				
+		if (key == KeyEvent.VK_F4)
+			Conductor.DEBUG_MODE.getHitboxMode().cycle();
+		
+		if (key == KeyEvent.VK_F5)
+			Conductor.DEBUG_MODE.getFastMode().cycle();
 	}
 	
 	////////// EXIT KEY ////////////
@@ -87,29 +108,30 @@ public class GameKeyboardInput extends KeyAdapter {
 	
 	private void movePlayer() {
 
-		movePlayerbyX();
-		movePlayerbyY();
+		int speedMultiplicator = Conductor.DEBUG_MODE.getFastMode().getState() ? 3 : 1;
+		movePlayerbyX(speedMultiplicator);
+		movePlayerbyY(speedMultiplicator);
 	}
 
-	private void movePlayerbyX() {
+	private void movePlayerbyX(int speedMultiplicator) {
 
 		if(directionKeyPressed[DIRECTION.LEFT.getNum()] && !directionKeyPressed[DIRECTION.RIGHT.getNum()])
-			Player.get().setVelX(- Player.SPEED);
+			Player.get().setVelX(- Player.SPEED * speedMultiplicator);
 		else if(directionKeyPressed[DIRECTION.LEFT.getNum()] && directionKeyPressed[DIRECTION.RIGHT.getNum()])
 			Player.get().setVelX(0);
 		else if(!directionKeyPressed[DIRECTION.LEFT.getNum()] && directionKeyPressed[DIRECTION.RIGHT.getNum()])
-			Player.get().setVelX(Player.SPEED);
+			Player.get().setVelX(Player.SPEED * speedMultiplicator);
 		else if(!directionKeyPressed[DIRECTION.LEFT.getNum()] && !directionKeyPressed[DIRECTION.RIGHT.getNum()])
 			Player.get().setVelX(0);
 	}
 
-	private void movePlayerbyY() {
+	private void movePlayerbyY(int speedMultiplicator) {
 		if(directionKeyPressed[DIRECTION.UP.getNum()] && !directionKeyPressed[DIRECTION.DOWN.getNum()])
-			Player.get().setVelY(- Player.SPEED);
+			Player.get().setVelY(- Player.SPEED * speedMultiplicator);
 		else if(directionKeyPressed[DIRECTION.UP.getNum()] && directionKeyPressed[DIRECTION.DOWN.getNum()])
 			Player.get().setVelY(0);
 		else if(!directionKeyPressed[DIRECTION.UP.getNum()] && directionKeyPressed[DIRECTION.DOWN.getNum()])
-			Player.get().setVelY(Player.SPEED);
+			Player.get().setVelY(Player.SPEED * speedMultiplicator);
 		else if(!directionKeyPressed[DIRECTION.UP.getNum()] && !directionKeyPressed[DIRECTION.DOWN.getNum()])
 			Player.get().setVelY(0);
 	}

@@ -1,5 +1,9 @@
 à faire
 
+GUIDebug = getBound null
+Handler - implanter le HitboxMode
+
+
 Window - la miniature
 
 
