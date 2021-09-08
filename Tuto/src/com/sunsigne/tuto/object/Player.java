@@ -3,7 +3,10 @@ package com.sunsigne.tuto.object;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Player extends GameObject {
+import com.sunsigne.tuto.object.collision.CollisionDetector;
+import com.sunsigne.tuto.object.collision.ICollisionDetection;
+
+public class Player extends GameObject implements ICollisionDetection {
 
 	public static final int SPEED = 32 / 3;
 	
@@ -39,6 +42,15 @@ public class Player extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(x, y, w, h);
+	}
+
+	////////// COLLISION ////////////
+	
+	private CollisionDetector collisionDetector = new CollisionDetector(this);
+	
+	@Override
+	public CollisionDetector getCollisionDetector() {
+		return collisionDetector;
 	}
 
 }

@@ -3,7 +3,9 @@ package com.sunsigne.tuto.object;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Wall extends GameObject {
+import com.sunsigne.tuto.object.collision.ICollisionReaction;
+
+public class Wall extends GameObject implements ICollisionReaction {
 
 	public Wall(int x, int y) {
 		super(true, false, x, y);
@@ -23,6 +25,13 @@ public class Wall extends GameObject {
 
 		g.setColor(Color.BLUE);
 		g.fillRect(x, y, w, h);
+	}
+
+	////////// COLLISION ////////////
+	
+	@Override
+	public void collidingReaction(GameObject clnDetectorObject) {
+		blockPass(clnDetectorObject, this);	
 	}
 
 }

@@ -1,12 +1,18 @@
 package com.sunsigne.tuto.object;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.LinkedList;
 
+import com.sunsigne.tuto.object.collision.ICollisionDetection;
+import com.sunsigne.tuto.object.collision.ICollisionReaction;
+import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.main.HandlerRender;
 import com.sunsigne.tuto.system.main.IRender;
 import com.sunsigne.tuto.system.main.ITick;
 import com.sunsigne.tuto.util.AnnotationBank.Singleton;
+import com.sunsigne.tuto.util.Facing.DIRECTION;
 
 @Singleton
 public class HandlerObject implements ITick, IRender {
@@ -47,7 +53,7 @@ public class HandlerObject implements ITick, IRender {
 	@SuppressWarnings("unchecked")
 	private LinkedList<GameObject>[][] handler_object_list = new LinkedList[2][2]; // - cameraDependency - layerAbove
 
-	private LinkedList<GameObject> getList(boolean cameraDependant, boolean layerAbove) {
+	public LinkedList<GameObject> getList(boolean cameraDependant, boolean layerAbove) {
 
 		int cameraDependency = cameraDependant ? 1 : 0;
 		int layerAboveness = layerAbove ? 1 : 0;
@@ -82,7 +88,7 @@ public class HandlerObject implements ITick, IRender {
 
 		return false;
 	}
-	
+
 	public GameObject getObjectAtPos(boolean cameraDependant, boolean layerAbove, int x, int y) {
 		for (GameObject tempObject : getList(cameraDependant, layerAbove)) {
 			if (tempObject.getX() == x && tempObject.getY() == y) {
@@ -107,6 +113,7 @@ public class HandlerObject implements ITick, IRender {
 		for (GameObject tempObject : list) {
 			tempObject.tick();
 			velocity(tempObject);
+			collision(tempObject);
 		}
 	}
 
@@ -115,6 +122,13 @@ public class HandlerObject implements ITick, IRender {
 		tempObject.setY(tempObject.getY() + tempObject.getVelY());
 	}
 
+	private void collision(GameObject tempObject) {
+		if (tempObject instanceof ICollisionDetection) {
+			ICollisionDetection clnDetectorObject = (ICollisionDetection) tempObject;
+			clnDetectorObject.getCollisionDetector().tick();
+		}			
+	}
+	
 	////////// RENDER ////////////
 
 	@Override
@@ -134,5 +148,27 @@ public class HandlerObject implements ITick, IRender {
 
 		for (GameObject tempObject : list)
 			tempObject.render(g);
+
+		if (Conductor.DEBUG_MODE.getHitboxMode().getState()) {
+			for (GameObject tempObject : list)
+				drawHitbox(tempObject, g);
+		}
+	}
+
+	private void drawHitbox(GameObject tempObject, Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(Color.white);
+
+		if (tempObject instanceof ICollisionReaction)
+			g2d.draw(tempObject.getBounds());
+		
+		if (tempObject instanceof ICollisionDetection)
+		{
+			g2d.draw(tempObject.getBounds(DIRECTION.LEFT));
+			g2d.draw(tempObject.getBounds(DIRECTION.RIGHT));
+			g2d.draw(tempObject.getBounds(DIRECTION.UP));
+			g2d.draw(tempObject.getBounds(DIRECTION.DOWN));
+		}
+			
 	}
 }

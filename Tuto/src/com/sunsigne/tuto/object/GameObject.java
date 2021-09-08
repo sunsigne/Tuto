@@ -2,8 +2,11 @@ package com.sunsigne.tuto.object;
 
 import java.awt.Rectangle;
 
+import com.sunsigne.tuto.object.collision.ICollisionDetection;
+import com.sunsigne.tuto.object.collision.ICollisionReaction;
 import com.sunsigne.tuto.system.main.IRender;
 import com.sunsigne.tuto.system.main.ITick;
+import com.sunsigne.tuto.util.Facing.DIRECTION;
 
 public abstract class GameObject implements ITick, IRender {
 
@@ -64,19 +67,6 @@ public abstract class GameObject implements ITick, IRender {
 		return h;
 	}
 
-	public int[] getRect() {
-		int[] rect = new int[4];
-		rect[0] = getBounds().x;
-		rect[1] = getBounds().y;
-		rect[2] = getBounds().width;
-		rect[3] = getBounds().height;
-		return rect;
-	}
-
-	public Rectangle getBounds() {
-		return new Rectangle(x, y, w, h);
-	}
-
 	////////// VELOCICY ////////////
 
 	protected int velX, velY;
@@ -128,5 +118,32 @@ public abstract class GameObject implements ITick, IRender {
 	public boolean isLayerAbove() {
 		return layerAbove;
 	}
+	
+	////////// COLLISION ////////////
 
+	public int[] getRect() {
+		int[] rect = new int[4];
+		rect[0] = getBounds().x;
+		rect[1] = getBounds().y;
+		rect[2] = getBounds().width;
+		rect[3] = getBounds().height;
+		return rect;
+	}
+
+	public Rectangle getBounds() {
+		if (this instanceof ICollisionReaction) {
+			ICollisionReaction clnReactorObject = (ICollisionReaction) this;
+			return clnReactorObject.getBounds(this);
+		}
+		return null;
+	}
+
+	public Rectangle getBounds(DIRECTION direction) {
+		if (this instanceof ICollisionDetection) {
+			ICollisionDetection clnDetectorObject = (ICollisionDetection) this;
+			return clnDetectorObject.getBounds(direction, this);
+		}
+		return null;
+	}
+	
 }
