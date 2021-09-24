@@ -17,12 +17,12 @@ public class ImageBank implements IRessources {
 	private static Map<ImageBank, BufferedImage> images = new HashMap<>();
 
 	// public for devs
-	public void addImage(ImageBank imageBank, BufferedImage bufferedImage) {
+	public static void addImage(ImageBank imageBank, BufferedImage bufferedImage) {
 		if (bufferedImage != null)
 			images.put(imageBank, bufferedImage);
 	}
 
-	public BufferedImage getImage(ImageBank imageBank) {
+	public static BufferedImage getImage(ImageBank imageBank) {
 		return images.get(imageBank);
 	}
 

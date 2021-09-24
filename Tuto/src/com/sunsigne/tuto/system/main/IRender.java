@@ -27,9 +27,9 @@ public interface IRender {
 			return new ImageTask().drawMissingTexture();
 
 		if (index == null)
-			return new ImageBank().getImage(getImageBank());
+			return ImageBank.getImage(getImageBank());
 
-		return new ImageBank().getImage(getImageBank(index));
+		return ImageBank.getImage(getImageBank(index));
 	}
 
 	void render(Graphics g);
