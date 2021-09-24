@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import com.sunsigne.tuto.object.collision.ICollisionReaction;
+import com.sunsigne.tuto.ressources.images.ImageBank;
 
 public class Wall extends GameObject implements ICollisionReaction {
 
@@ -19,7 +20,12 @@ public class Wall extends GameObject implements ICollisionReaction {
 	}
 
 	////////// RENDER ////////////
-
+	
+	@Override
+	public ImageBank getImageBank(int... index) {
+		return null;
+	}
+		
 	@Override
 	public void render(Graphics g) {
 

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import com.sunsigne.tuto.object.collision.ICollisionDetection;
 import com.sunsigne.tuto.object.collision.ICollisionReaction;
+import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.main.HandlerRender;
 import com.sunsigne.tuto.system.main.IRender;
@@ -140,7 +141,12 @@ public class HandlerObject implements ITick, IRender {
 	public boolean isLayerAbove() {
 		return HandlerRender.getInstance().isLayerAbove();
 	}
-
+	
+	@Override
+	public ImageBank getImageBank(int... index) {
+		return null;
+	}
+		
 	@Override
 	public void render(Graphics g) {
 

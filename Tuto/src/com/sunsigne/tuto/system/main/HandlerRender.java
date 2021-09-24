@@ -3,6 +3,7 @@ package com.sunsigne.tuto.system.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.util.AnnotationBank.Singleton;
 
 @Singleton
@@ -78,6 +79,11 @@ public class HandlerRender implements IRender {
 	}
 	
 	@Override
+	public ImageBank getImageBank(int... index) {
+		return null;
+	}
+	
+	@Override
 	public void render(Graphics g) {
 		var list = getList(cameraDependant, layerAbove);
 		int size = list.size();
@@ -90,6 +96,7 @@ public class HandlerRender implements IRender {
 			tempRender.render(g);
 		}
 	}
+
 
 
 }

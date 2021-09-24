@@ -3,8 +3,10 @@ package com.sunsigne.tuto.object.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import com.sunsigne.tuto.object.GameObject;
+import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.DebugMode;
 import com.sunsigne.tuto.system.Window;
@@ -29,6 +31,12 @@ public class GUIDebug extends GameObject {
 	}
 
 	////////// RENDER ////////////
+		
+	@Override
+	public ImageBank getImageBank(int... index) {
+		return ImageBank.TOOL[index[0]][0];
+	}
+	
 	
 	@Override
 	public void render(Graphics g) {
@@ -40,42 +48,27 @@ public class GUIDebug extends GameObject {
 		
 		if(debugmode.getMultiToolMode().getState())
 		{
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y, w, h);
-			g.setColor(Color.WHITE);
-			g.drawString("multitool", x + 20, y + 60);
+			g.drawImage(getImage(1), x, y, w, h, null);
 		}
 		
 		if(debugmode.getWallPassMode().getState())
 		{
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y - h, w, h);
-			g.setColor(Color.WHITE);
-			g.drawString("wallpass", x + 20, y + 60 - h);
+			g.drawImage(getImage(2), x, y - h, w, h, null);
 		}
 		
 		if(debugmode.getSkipMode().getState())
 		{
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y - 2*h, w, h);
-			g.setColor(Color.WHITE);
-			g.drawString("skip", x + 20, y + 60 - 2*h);
+			g.drawImage(getImage(3), x, y - 2*h, w, h, null);
 		}
 		
 		if(debugmode.getHitboxMode().getState())
 		{
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y - 3*h, w, h);
-			g.setColor(Color.WHITE);
-			g.drawString("hitbox", x + 20, y + 60 - 3*h);
+			g.drawImage(getImage(4), x, y - 3*h, w, h, null);
 		}
 		
 		if(debugmode.getFastMode().getState())
 		{
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y - 4*h, w, h);
-			g.setColor(Color.WHITE);
-			g.drawString("fast", x + 20, y + 60 - 4*h);
+			g.drawImage(getImage(5), x, y - 4*h, w, h, null);
 		}
 			
 		

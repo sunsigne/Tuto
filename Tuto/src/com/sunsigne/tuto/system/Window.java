@@ -3,6 +3,7 @@ package com.sunsigne.tuto.system;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import com.sunsigne.tuto.system.main.Tuto;
@@ -20,6 +21,7 @@ public class Window {
 		tuto.setMaximumSize(new Dimension(WIDHT, HEIGHT));
 		tuto.setPreferredSize(new Dimension(WIDHT, HEIGHT));
 		
+		ImageIcon icon = new ImageIcon("ressources/icon.png");
 		JFrame frame = new JFrame(NAME);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,6 +29,7 @@ public class Window {
 		frame.setLayout(new BorderLayout());
 		frame.add(tuto, BorderLayout.CENTER);
 		
+		frame.setIconImage(icon.getImage());
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setUndecorated(true);

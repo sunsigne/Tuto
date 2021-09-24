@@ -4,8 +4,12 @@ import com.sunsigne.tuto.object.Player;
 import com.sunsigne.tuto.object.Wall;
 import com.sunsigne.tuto.object.gui.GUIDebug;
 import com.sunsigne.tuto.object.gui.GUIHealth;
+import com.sunsigne.tuto.ressources.HandlerRessources;
+import com.sunsigne.tuto.ressources.images.ImageBank;
+import com.sunsigne.tuto.ressources.images.SheetBank;
 import com.sunsigne.tuto.system.controllers.GameKeyboardInput;
 import com.sunsigne.tuto.system.main.Tuto;
+import com.sunsigne.tuto.util.ForceInit;
 
 public class Conductor {
 
@@ -25,14 +29,29 @@ public class Conductor {
 		
 		Tuto.getInstance().start();
 		
+		// LOADING OF MINIMAL RESSOURCES
+		forceInit();
+		HandlerRessources.getInstance().loadMinimalRessources();
 		Tuto.getInstance().addKeyListener(KEYBOARD);
 		Tuto.getInstance().requestFocus();
+		
+		// LOADING OF RESSOURCES
+		HandlerRessources.getInstance().loadRessources();
+		Tuto.getInstance().forceLoop();
 		
 		loadLevel();
 	}
 
 	public static void stopApp() {
 		System.exit(1);
+	}
+	
+	////////// RESSOURCES ////////////
+
+	private static void forceInit() {
+
+		new ForceInit().forceInit(SheetBank.class);
+		new ForceInit().forceInit(ImageBank.class);
 	}
 	
 	////////// LOAD LEVEL ////////////

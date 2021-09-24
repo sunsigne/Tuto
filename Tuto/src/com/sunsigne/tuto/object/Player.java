@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import com.sunsigne.tuto.object.collision.CollisionDetector;
 import com.sunsigne.tuto.object.collision.ICollisionDetection;
+import com.sunsigne.tuto.ressources.images.ImageBank;
 
 public class Player extends GameObject implements ICollisionDetection {
 
@@ -38,6 +39,11 @@ public class Player extends GameObject implements ICollisionDetection {
 
 	////////// RENDER ////////////
 	
+	@Override
+	public ImageBank getImageBank(int... index) {
+		return null;
+	}
+		
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.RED);

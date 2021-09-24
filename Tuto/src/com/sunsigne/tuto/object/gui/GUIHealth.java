@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.sunsigne.tuto.object.GameObject;
+import com.sunsigne.tuto.ressources.images.ImageBank;
 
 public class GUIHealth extends GameObject {
 
@@ -19,7 +20,12 @@ public class GUIHealth extends GameObject {
 	}
 
 	////////// RENDER ////////////
-
+	
+	@Override
+	public ImageBank getImageBank(int... index) {
+		return null;
+	}
+		
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.BLUE);
