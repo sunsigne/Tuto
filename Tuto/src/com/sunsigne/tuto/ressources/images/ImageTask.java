@@ -14,13 +14,13 @@ public class ImageTask {
 
 	private final URL loc = Tuto.class.getProtectionDomain().getCodeSource().getLocation();
 
-	public BufferedImage loadImage(String path0) {
+	public BufferedImage loadImage(String path) {
 
 		BufferedImage image = null;
 
 		try {
-			String path = "\\ressources\\" + path0;
-			URL url = new File((new File(loc.toURI())).getParent() + path).toURI().toURL();
+			String path0 = "\\ressources\\" + path;
+			URL url = new File((new File(loc.toURI())).getParent() + path0).toURI().toURL();
 			image = ImageIO.read(url);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,6 +15,8 @@ public class ForceInit {
 
 		try {
 			getClassObject(object).getDeclaredConstructor().newInstance();
+		} catch (NoSuchMethodException e) {
+			// Not really a problem, still working
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

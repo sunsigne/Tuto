@@ -28,7 +28,6 @@ public class Window {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setLayout(new BorderLayout());
 		frame.add(tuto, BorderLayout.CENTER);
-		
 		frame.setIconImage(icon.getImage());
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);

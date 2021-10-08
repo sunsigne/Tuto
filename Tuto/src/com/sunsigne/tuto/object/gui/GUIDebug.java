@@ -40,37 +40,22 @@ public class GUIDebug extends GameObject {
 	
 	@Override
 	public void render(Graphics g) {
-		
+
 		DebugMode debugmode = Conductor.DEBUG_MODE;
-		
-		Font font = new Font("arial", 1, 20);
-		g.setFont(font);		
-		
-		if(debugmode.getMultiToolMode().getState())
-		{
+
+		if (debugmode.getMultiToolMode().getState())
 			g.drawImage(getImage(1), x, y, w, h, null);
-		}
-		
-		if(debugmode.getWallPassMode().getState())
-		{
+
+		if (debugmode.getWallPassMode().getState())
 			g.drawImage(getImage(2), x, y - h, w, h, null);
-		}
-		
-		if(debugmode.getSkipMode().getState())
-		{
-			g.drawImage(getImage(3), x, y - 2*h, w, h, null);
-		}
-		
-		if(debugmode.getHitboxMode().getState())
-		{
-			g.drawImage(getImage(4), x, y - 3*h, w, h, null);
-		}
-		
-		if(debugmode.getFastMode().getState())
-		{
-			g.drawImage(getImage(5), x, y - 4*h, w, h, null);
-		}
-			
-		
+
+		if (debugmode.getSkipMode().getState())
+			g.drawImage(getImage(3), x, y - 2 * h, w, h, null);
+
+		if (debugmode.getHitboxMode().getState())
+			g.drawImage(getImage(4), x, y - 3 * h, w, h, null);
+
+		if (debugmode.getFastMode().getState())
+			g.drawImage(getImage(5), x, y - 4 * h, w, h, null);
 	}
 }
