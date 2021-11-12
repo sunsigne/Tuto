@@ -1,6 +1,5 @@
 package com.sunsigne.tuto.object;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -16,14 +15,14 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 	public static final int SPEED = 32 / 3;
 		
 	private Player(String name, int x, int y) {
-		this(x, y);
+		super(true, false, x, y);
+		
 		this.name = name.toLowerCase();
+		initCycloid();
 	}	
 	
 	private Player(int x, int y) {
-		super(true, false, x, y);
-		this.name = "rebecca";
-		initCycloid();
+		this("rebecca", x, y);
 	}
 
 	////////// EXISTING ////////////
@@ -172,7 +171,7 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 	public void render(Graphics g) {
 		
 		int facing = getFacing().getNum();
-		BufferedImage img = walking[facing].getState();
+		BufferedImage img = facing > -1 ? walking[facing].getState() : getImage("ground");
 		g.drawImage(img, x, y, w, h, null);
 	}
 
