@@ -29,7 +29,7 @@ public class Wall extends GameObject implements ICollisionReaction {
 	@Override
 	public void render(Graphics g) {
 
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GREEN);
 		g.fillRect(x, y, w, h);
 	}
 

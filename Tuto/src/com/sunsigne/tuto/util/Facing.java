@@ -1,16 +1,29 @@
 package com.sunsigne.tuto.util;
 
-public class Facing {
+public interface Facing {
 
+	////////// FACING ////////////
+	
+	public DIRECTION getFacing();
+	
+	public void setFacing(DIRECTION facing);
+	
 	////////// DIRECTION ////////////
 
 	public enum DIRECTION {
-		NULL(-1), LEFT(0), RIGHT(1), UP(2), DOWN(3);
+		NULL("null", -1), LEFT("left", 0), RIGHT("right", 1), UP("up", 2), DOWN("down", 3);
 
+		private String name;
 		private int num;
 
-		DIRECTION(int num) {
+		DIRECTION(String name, int num) {
+			
+			this.name = name;
 			this.num = num;
+		}
+		
+		public String getName() {
+			return name;
 		}
 
 		public int getNum() {
