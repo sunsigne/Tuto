@@ -1,9 +1,10 @@
 package com.sunsigne.tuto.system;
 
-import com.sunsigne.tuto.object.Player;
 import com.sunsigne.tuto.object.Wall;
 import com.sunsigne.tuto.object.gui.GUIDebug;
 import com.sunsigne.tuto.object.gui.GUIHealth;
+import com.sunsigne.tuto.object.livings.Foe;
+import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.ressources.images.SheetBank;
 import com.sunsigne.tuto.system.controllers.GameKeyboardInput;
@@ -62,6 +63,8 @@ public class Conductor {
 		
 		new Wall(500, 300).start();		
 		new Wall(900, 600).start();
+		
+		new Foe(1500, 600).start();
 		
 		Tuto.getInstance().forceLoop();
 		

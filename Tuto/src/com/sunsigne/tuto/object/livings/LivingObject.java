@@ -1,45 +1,23 @@
-package com.sunsigne.tuto.object;
+package com.sunsigne.tuto.object.livings;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.sunsigne.tuto.object.collision.CollisionDetector;
-import com.sunsigne.tuto.object.collision.ICollisionDetection;
+import com.sunsigne.tuto.object.GameObject;
 import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.ressources.images.ImageTask;
 import com.sunsigne.tuto.util.Cycloid;
 import com.sunsigne.tuto.util.Facing;
+import com.sunsigne.tuto.util.Facing.DIRECTION;
 
-public class Player extends GameObject implements ICollisionDetection, Facing {
+public abstract class LivingObject extends GameObject implements Facing {
 
-	public static final int SPEED = 32 / 3;
-		
-	private Player(String name, int x, int y) {
+	protected LivingObject(String name, int x, int y) {
 		super(true, false, x, y);
 		
 		this.name = name.toLowerCase();
 		initCycloid();
 	}	
-	
-	private Player(int x, int y) {
-		this("rebecca", x, y);
-	}
-
-	////////// EXISTING ////////////
-	
-	private static Player player = new Player(0, 0);
-	
-	public static boolean isExisting() {
-		return HandlerObject.getInstance().isPlayerExisting();
-	}
-	
-	public static Player get() {
-		return player;
-	}
-	
-	public static void reset() {
-		player = new Player(0, 0);
-	}
 	
 	////////// NAME ////////////
 	
@@ -48,11 +26,10 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 	public String getName() {
 		return name;
 	}
-	
+		
 	////////// FACING ////////////
 	
 	private DIRECTION facing = DIRECTION.DOWN;
-	private boolean[] watching = new boolean[4];
 	private boolean flagX, flagY;
 	
 	@Override
@@ -62,34 +39,11 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 
 	@Override
 	public void setFacing(DIRECTION facing) {
-		resetWatchingDirection();
-		watching[facing.getNum()] = true;
 		this.facing = facing;
 	}
 	
-	private void resetWatchingDirection() {
-		watching[DIRECTION.LEFT.getNum()] = false;
-		watching[DIRECTION.RIGHT.getNum()] = false;
-		watching[DIRECTION.UP.getNum()] = false;
-		watching[DIRECTION.DOWN.getNum()] = false;
-	}
 
-	////////// TICK ////////////
-	
-	private final int ANIMATION_TIME = 10;
-	private int time = ANIMATION_TIME;
-	
-	@Override
-	public void tick() {
-		updateWatchingDirection();
-		
-		if(isMotionless())
-			freezeAnimation();
-		else
-			runAnimation();
-	}
-	
-	private void updateWatchingDirection() {
+	protected void updateWatchingDirection() {
 		if(isMotionlessbyX())
 			flagX = false;
 		if(isMotionlessbyY())
@@ -120,24 +74,89 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 		}
 	}
 	
-	private void freezeAnimation() {
+	////////// PUSHING ////////////
+
+	private final int PUSHSPEED = 20;
+	
+	private boolean isPushed;
+
+	public boolean isPushed() {
+		return isPushed;
+	}
+
+	public void setPushed(boolean isPushed) {
+		this.isPushed = isPushed;
+	}	
+	
+	public void pushToward(DIRECTION facing) {
+		paralyse();
+		pushed(facing);
+		setPushed(true);
+	}
+
+	private void paralyse() {
+		if(isPushed())
+			setMotionless();
+	}
+
+	private void pushed(DIRECTION facing) {
+		if (isPushed())
+			return;
+		if (facing == DIRECTION.LEFT)
+			setVelX(-PUSHSPEED);
+		if (facing == DIRECTION.RIGHT)
+			setVelX(PUSHSPEED);
+		if (facing == DIRECTION.UP)
+			setVelY(-PUSHSPEED);
+		if (facing == DIRECTION.DOWN)
+			setVelY(PUSHSPEED);
+	}
+	
+	////////// TICK ////////////
+
+	private final int ANIMATION_TIME = 10;
+	private int animation_time = ANIMATION_TIME;
+	
+	private final int PUSHING_TIME = 10;
+	private int push_time = PUSHING_TIME;
+	
+	@Override
+	public void tick() {
+		updateWatchingDirection();
+		
+		if(isPushed()) --push_time;
+		if (push_time < 0) stabilize();
+		
+		if(isMotionless())
+			freezeAnimation();
+		else
+			runAnimation();
+	}
+	
+	private void stabilize() {
+		push_time = PUSHING_TIME;
+		setPushed(false);
+		setMotionless();
+	}
+
+	protected void freezeAnimation() {
 		for (int i = 0; i < walking.length; i++) {
 			walking[i].setState(0);
 		}
 	}
 
-	private void runAnimation() {
-		time--;
-		if (time < 0) {
-			time = ANIMATION_TIME;
+	protected void runAnimation() {
+		animation_time--;
+		if (animation_time < 0) {
+			animation_time = ANIMATION_TIME;
 			for (int i = 0; i < walking.length; i++) {
 				walking[i].cycle();
 			}
 		}
 	}
 	
-	////////// RENDER ////////////
-
+	//////////RENDER ////////////
+	
 	@Override
 	public ImageBank getImageBank(int... index) {
 		return null;
@@ -152,7 +171,7 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 		walking[DIRECTION.UP.getNum()] = new Cycloid<>(getImages(DIRECTION.UP));
 		walking[DIRECTION.DOWN.getNum()] = new Cycloid<>(getImages(DIRECTION.DOWN));
 	}
-
+	
 	private BufferedImage getImage(String imageName) {
 		return new ImageTask().loadImage("textures/characters/" + getName() + "/walking_" + imageName + ".png");
 	}
@@ -174,15 +193,8 @@ public class Player extends GameObject implements ICollisionDetection, Facing {
 		BufferedImage img = facing > -1 ? walking[facing].getState() : getImage("ground");
 		g.drawImage(img, x, y, w, h, null);
 	}
-
-	////////// COLLISION ////////////
 	
-	private CollisionDetector collisionDetector = new CollisionDetector(this);
+		
 	
-	@Override
-	public CollisionDetector getCollisionDetector() {
-		return collisionDetector;
-	}
-
 
 }

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import com.sunsigne.tuto.object.collision.ICollisionDetection;
 import com.sunsigne.tuto.object.collision.ICollisionReaction;
+import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.main.HandlerRender;
@@ -79,7 +80,7 @@ public class HandlerObject implements ITick, IRender {
 
 	////////// UTIL ////////////
 
-	protected boolean isPlayerExisting() {
+	public boolean isPlayerExisting() {
 
 		if (getList(true, false).contains(Player.get()))
 			return true;

@@ -2,7 +2,7 @@ package com.sunsigne.tuto.object.collision;
 
 import com.sunsigne.tuto.object.GameObject;
 import com.sunsigne.tuto.object.HandlerObject;
-import com.sunsigne.tuto.object.Player;
+import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.system.main.ITick;
 import com.sunsigne.tuto.util.Facing.DIRECTION;

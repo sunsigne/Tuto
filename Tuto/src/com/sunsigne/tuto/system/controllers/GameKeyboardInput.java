@@ -3,7 +3,7 @@ package com.sunsigne.tuto.system.controllers;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.sunsigne.tuto.object.Player;
+import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.util.Facing.DIRECTION;
 
@@ -101,8 +101,9 @@ public class GameKeyboardInput extends KeyAdapter {
 	private boolean isPlayerMovable() {
 		
 		boolean isPlayerExisting = Player.isExisting();
+		boolean isPlayerPushed = Player.isExisting() ? Player.get().isPushed() : false;
 		
-		return isPlayerExisting;
+		return isPlayerExisting & !isPlayerPushed;
 	}
 	
 	

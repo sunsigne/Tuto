@@ -1,7 +1,7 @@
 package com.sunsigne.tuto.util;
 
 import com.sunsigne.tuto.object.GameObject;
-import com.sunsigne.tuto.object.Player;
+import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.system.Window;
 import com.sunsigne.tuto.system.main.ITick;
 
