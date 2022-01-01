@@ -1,15 +1,19 @@
 package com.sunsigne.tuto.system;
 
+import java.awt.image.BufferedImage;
+
 import com.sunsigne.tuto.object.Wall;
 import com.sunsigne.tuto.object.gui.GUIDebug;
 import com.sunsigne.tuto.object.gui.GUIHealth;
 import com.sunsigne.tuto.object.livings.Foe;
 import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.ressources.images.ImageBank;
+import com.sunsigne.tuto.ressources.images.ImageTask;
 import com.sunsigne.tuto.ressources.images.SheetBank;
 import com.sunsigne.tuto.system.controllers.GameKeyboardInput;
 import com.sunsigne.tuto.system.main.Tuto;
 import com.sunsigne.tuto.util.ForceInit;
+import com.sunsigne.tuto.world.MapCreator;
 
 public class Conductor {
 
@@ -37,7 +41,8 @@ public class Conductor {
 		loadRessources();
 		Tuto.getInstance().forceLoop();
 		
-		loadLevel();
+		BufferedImage lvl01 = new ImageTask().loadImage("/maps/lvl01.png");		
+		new MapCreator().loadLevel(lvl01);
 	}
 
 	public static void stopApp() {
@@ -52,23 +57,6 @@ public class Conductor {
 		new ForceInit().forceInit(ImageBank.class);
 		ImageBank.loadRessources();
 	}
-	
-	////////// LOAD LEVEL ////////////
-	
-	private static void loadLevel() {
-		
-		Player.get().start();
-		new GUIHealth().start();
-		new GUIDebug().start();
-		
-		new Wall(500, 300).start();		
-		new Wall(900, 600).start();
-		
-		new Foe(1500, 600).start();
-		
-		Tuto.getInstance().forceLoop();
-		
-		
-	}
+
 
 }
