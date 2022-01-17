@@ -173,7 +173,10 @@ public abstract class LivingObject extends GameObject implements Facing {
 	}
 	
 	private BufferedImage getImage(String imageName) {
-		return new ImageTask().loadImage("textures/characters/" + getName() + "/walking_" + imageName + ".png");
+		String path = "textures/characters/" + getName() + "/walking_" + imageName + ".png";
+		String backupPath = "textures/characters/" + "error" + "/walking_" + imageName + ".png";
+		
+		return new ImageTask().loadImage(path, backupPath);
 	}
 	
 	private BufferedImage[] getImages(DIRECTION direction) {

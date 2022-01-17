@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -14,6 +15,29 @@ public class ImageTask {
 
 	private final URL loc = Tuto.class.getProtectionDomain().getCodeSource().getLocation();
 
+	public BufferedImage loadImage(String path, String backupPath) {
+
+		BufferedImage image = null;
+
+		try {
+			String path0 = "\\ressources\\" + path;
+			URL url = new File((new File(loc.toURI())).getParent() + path0).toURI().toURL();
+			image = ImageIO.read(url);
+		} catch (Exception e) {
+			try {
+				String path1 = "\\ressources\\" + backupPath;
+				URL url1 = new File((new File(loc.toURI())).getParent() + path1).toURI().toURL();
+				image = ImageIO.read(url1);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				image = drawMissingTexture();
+			}
+			
+		}
+
+		return image;
+	}
+	
 	public BufferedImage loadImage(String path) {
 
 		BufferedImage image = null;
