@@ -2,15 +2,11 @@ package com.sunsigne.tuto.system;
 
 import java.awt.image.BufferedImage;
 
-import com.sunsigne.tuto.object.Wall;
-import com.sunsigne.tuto.object.gui.GUIDebug;
-import com.sunsigne.tuto.object.gui.GUIHealth;
-import com.sunsigne.tuto.object.livings.Foe;
-import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.ressources.images.ImageBank;
 import com.sunsigne.tuto.ressources.images.ImageTask;
 import com.sunsigne.tuto.ressources.images.SheetBank;
 import com.sunsigne.tuto.system.controllers.GameKeyboardInput;
+import com.sunsigne.tuto.system.controllers.GameMouseInput;
 import com.sunsigne.tuto.system.main.Tuto;
 import com.sunsigne.tuto.util.ForceInit;
 import com.sunsigne.tuto.world.MapCreator;
@@ -19,6 +15,7 @@ public class Conductor {
 
 	public static final DebugMode DEBUG_MODE = new DebugMode();
 	public static final GameKeyboardInput KEYBOARD = new GameKeyboardInput();
+	public static final GameMouseInput MOUSE = new GameMouseInput();
 	
 	////////// START & STOP ////////////
 	
@@ -36,6 +33,7 @@ public class Conductor {
 		// LOADING OF MINIMAL RESSOURCES		
 		Tuto.getInstance().addKeyListener(KEYBOARD);
 		Tuto.getInstance().requestFocus();
+		Tuto.getInstance().addMouseListener(MOUSE);
 		
 		// LOADING OF RESSOURCES
 		loadRessources();

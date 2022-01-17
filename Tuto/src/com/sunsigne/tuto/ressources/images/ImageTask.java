@@ -15,40 +15,25 @@ public class ImageTask {
 
 	private final URL loc = Tuto.class.getProtectionDomain().getCodeSource().getLocation();
 
+	public BufferedImage loadImage(String path) {
+		return loadImage(path, null);
+	}
+	
 	public BufferedImage loadImage(String path, String backupPath) {
 
 		BufferedImage image = null;
 
+		if(path == null) 
+			return drawMissingTexture();
+		
 		try {
-			String path0 = "\\ressources\\" + path;
-			URL url = new File((new File(loc.toURI())).getParent() + path0).toURI().toURL();
-			image = ImageIO.read(url);
-		} catch (Exception e) {
-			try {
-				String path1 = "\\ressources\\" + backupPath;
-				URL url1 = new File((new File(loc.toURI())).getParent() + path1).toURI().toURL();
-				image = ImageIO.read(url1);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				image = drawMissingTexture();
-			}
-			
-		}
-
-		return image;
-	}
-	
-	public BufferedImage loadImage(String path) {
-
-		BufferedImage image = null;
-
-		try {
-			String path0 = "\\ressources\\" + path;
+			String path0 = "/ressources/" + path;
+			path = null;
 			URL url = new File((new File(loc.toURI())).getParent() + path0).toURI().toURL();
 			image = ImageIO.read(url);
 		} catch (Exception e) {
 			e.printStackTrace();
-			image = drawMissingTexture();
+			image = loadImage(backupPath, path);
 		}
 
 		return image;
