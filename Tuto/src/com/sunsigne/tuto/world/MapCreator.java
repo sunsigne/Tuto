@@ -3,6 +3,7 @@ package com.sunsigne.tuto.world;
 import java.awt.image.BufferedImage;
 
 import com.sunsigne.tuto.object.Wall;
+import com.sunsigne.tuto.object.livings.Foe;
 import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.system.main.Tuto;
 
@@ -34,6 +35,10 @@ public class MapCreator {
 					player.setX(x0);
 					player.setY(y0);
 					player.start();
+				}
+				
+				if(red == 255 && green == 255 && blue == 0) {
+					new Foe(x0, y0).start();	
 				}
 			}
 		}

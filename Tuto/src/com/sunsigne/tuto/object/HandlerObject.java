@@ -49,13 +49,27 @@ public class HandlerObject implements ITick, IRender {
 			instance = new HandlerObject();
 		return instance;
 	}
+	
+	////////// USEFULL ////////////
+
+	public static GameObject getObjectAtPos(GameObject object, int x, int y) {
+
+		for (GameObject tempObject : getList(object.isCameraDependant(), object.isLayerAbove())) {
+
+			if (tempObject.getX() == x && tempObject.getY() == y) {
+				return tempObject;
+			}
+		}
+		return null;
+	}
+
 
 	////////// MAP OR LIST ////////////
 
 	@SuppressWarnings("unchecked")
-	private LinkedList<GameObject>[][] handler_object_list = new LinkedList[2][2]; // - cameraDependency - layerAbove
+	private static LinkedList<GameObject>[][] handler_object_list = new LinkedList[2][2]; // - cameraDependency - layerAbove
 
-	public LinkedList<GameObject> getList(boolean cameraDependant, boolean layerAbove) {
+	public static LinkedList<GameObject> getList(boolean cameraDependant, boolean layerAbove) {
 
 		int cameraDependency = cameraDependant ? 1 : 0;
 		int layerAboveness = layerAbove ? 1 : 0;
