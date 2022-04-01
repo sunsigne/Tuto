@@ -28,7 +28,7 @@ public interface PathSearcher {
 			return;
 		}
 		
-		PathFinder pathFinder = new PathFinder(this, getGoal());
+		PathFinder pathFinder = new PathFinder(this, getGoal(), true);
 		setPath(pathFinder.getPath());
 		followPath(searcher);
 	}

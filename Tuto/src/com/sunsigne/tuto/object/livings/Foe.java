@@ -5,6 +5,7 @@ import com.sunsigne.tuto.object.collision.CollisionDetector;
 import com.sunsigne.tuto.object.collision.ICollisionDetection;
 import com.sunsigne.tuto.object.collision.ICollisionReaction;
 import com.sunsigne.tuto.pathfinder.PathSearcher;
+import com.sunsigne.tuto.pathfinder.TilePos;
 
 public class Foe extends LivingObject implements PathSearcher, ICollisionDetection, ICollisionReaction {
 
@@ -52,6 +53,11 @@ public class Foe extends LivingObject implements PathSearcher, ICollisionDetecti
 		else
 			runAnimation();
 	}
+		
+	private void shiftFoe() {
+		setX(new TilePos().getTilePos(getX()));
+		setY(new TilePos().getTilePos(getY()));
+	}
 
 	////////// COLLISION ////////////
 
@@ -72,13 +78,14 @@ public class Foe extends LivingObject implements PathSearcher, ICollisionDetecti
 		if (clnDetectorObject instanceof Player) {
 			Player player = Player.get();
 			player.pushToward(getFacing());
+			shiftFoe();
 			setStuned(true);
 		}
 		blockPass(clnDetectorObject, this);
 	}
 
 	////////// PATH FINDER ////////////
-	
+
 	public GameObject goal;
 
 	@Override

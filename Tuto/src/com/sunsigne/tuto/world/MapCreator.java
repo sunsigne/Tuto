@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import com.sunsigne.tuto.object.Wall;
 import com.sunsigne.tuto.object.livings.Foe;
 import com.sunsigne.tuto.object.livings.Player;
+import com.sunsigne.tuto.pathfinder.PathPointObject;
 import com.sunsigne.tuto.system.main.Tuto;
 
 public class MapCreator {
@@ -25,6 +26,10 @@ public class MapCreator {
 				
 				int x0 = xx * 3 * 32 / STEP;
 				int y0 = yy * 3 * 32 / STEP;
+				
+				if(red == 128 && green == 128 && blue == 128) {
+					new PathPointObject(x0, y0).start();	
+				}
 				
 				if(red == 255 && green == 255 && blue == 255) {
 					new Wall(x0, y0).start();	
