@@ -4,6 +4,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import com.sunsigne.tuto.object.livings.Player;
+import com.sunsigne.tuto.pathfinder.TilePos;
+import com.sunsigne.tuto.ressources.FileTask;
 import com.sunsigne.tuto.system.Conductor;
 import com.sunsigne.tuto.util.Facing.DIRECTION;
 
@@ -25,7 +27,22 @@ public class GameKeyboardInput extends KeyAdapter {
 		
 		degugKey(key);
 		exitKey(key);
+		saveKey(key);
 		directionKey(key, true);
+	}
+
+	private void saveKey(int key) {
+		if (key == KeyEvent.VK_ENTER)
+		{
+			Player player = Player.get();
+			
+			int x0 = 21;
+			int y0 = 12;
+			int registeredX = new TilePos().getTilePos(player.getX()) / (3 * 32) - x0;
+			int registeredY = new TilePos().getTilePos(y0 + player.getY()) / (3 * 32) - y0;
+			new FileTask().write("XPOS", "data/player.txt", Integer.toString(registeredX));
+			new FileTask().write("YPOS", "data/player.txt", Integer.toString(registeredY));
+		}
 	}
 
 	@Override
