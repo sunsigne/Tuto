@@ -6,6 +6,7 @@ import com.sunsigne.tuto.object.Wall;
 import com.sunsigne.tuto.object.livings.Foe;
 import com.sunsigne.tuto.object.livings.Player;
 import com.sunsigne.tuto.pathfinder.PathPointObject;
+import com.sunsigne.tuto.ressources.FileTask;
 import com.sunsigne.tuto.system.main.Tuto;
 
 public class MapCreator {
@@ -39,6 +40,10 @@ public class MapCreator {
 					Player player = Player.get();
 					player.setX(x0);
 					player.setY(y0);
+					int registeredX = Integer.parseInt(new FileTask().read("XPOS", "data/player.txt"));
+					int registeredY = Integer.parseInt(new FileTask().read("YPOS", "data/player.txt"));
+					player.setX(x0 + registeredX*3 * 32);
+					player.setY(y0 + registeredY*3 * 32);
 					player.start();
 				}
 				
